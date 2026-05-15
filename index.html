@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- meta tags -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- favicon -->
+  <link rel="shortcut icon" href="./assets/images/icon.png" type="image/png">
+  <!-- fonts -->
+  <link rel="stylesheet" href="./assets/fonts/fonts.css">
+  <!-- style -->
+  <link rel="stylesheet" href="./index.css">
+  <!-- libraries -->
+  <script src="./assets/libraries/vue.min.js"></script>
+  <script src="./assets/libraries/jszip.min.js"></script>
+  <!-- script -->
+  <script src="./index.js" type="module"></script>
+  <!-- page title -->
+  <title>Emojify - Emoji Search & Sentence Enhancement Tool</title>
+</head>
+
+<body>
+  <div id="app">
+    <!-- heading -->
+    <div class="heading">
+      <div class="heading-title">
+        Emojify Your Life!
+      </div>
+      <div class="heading-description">
+        Emoji Search Engine & Sentence Enhancement Tool
+      </div>
+    </div>
+    <!-- content -->
+    <div class="content">
+      <!-- search section -->
+      <div class="search">
+        <!-- search input -->
+        <div class="search-input">
+          <input type="text" spellcheck="false" autocomplete="off" id="search" placeholder="Find your emoji...">
+          <button></button>
+        </div>
+        <!-- search results -->
+        <div class="search-results">
+          <div class="search-results-item" v-for="item in results">
+            {{item.char}}
+          </div>
+        </div>
+      </div>
+      <!-- enhance section -->
+      <div class="enhance"></div>
+    </div>
+  </div>
+</body>
+
+</html>
