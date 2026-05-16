@@ -36,7 +36,7 @@ new Vue({
     // search input values
     search: { query: "", copied: null },
     // text enhancement values
-    enhance: { input: "", output: "" }
+    enhance: { input: "", output: "", copied: null }
   },
   // app methods
   methods: {
@@ -105,9 +105,9 @@ new Vue({
       // set as copied item
       this.search.copied = item.char
       // clear any previous timeout
-      clearTimeout(this.timeout)
+      clearTimeout(this.searchTime)
       // clear copied status
-      this.timeout = setTimeout(() => this.search.copied = null, 1200)
+      this.searchTime = setTimeout(() => this.search.copied = null, 1200)
       // write into clipboard data
       navigator.clipboard.writeText(item.char)
     },
@@ -142,6 +142,17 @@ new Vue({
       })
       // set output
       this.enhance.output = results.join(" ")
+    },
+    // copy text to clipboard
+    copyText() {
+      // set as copied
+      this.enhance.copied = true
+      // clear any previous timeout
+      clearTimeout(this.enhanceTime)
+      // clear copied status
+      this.enhanceTime = setTimeout(() => this.enhance.copied = false, 1200)
+      // write into clipboard data
+      navigator.clipboard.writeText(this.enhance.output)
     }
   },
   // mounted listener

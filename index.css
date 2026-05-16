@@ -277,6 +277,61 @@ body {
   background-color: #fff2;
 }
 
+.enhance-copy {
+  color: #fffa;
+  border: 1px solid #ffffff17;
+  border-radius: 10px;
+  font-size: 13px;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  transition-property: background-color, border, transform;
+  transition-duration: 0.1s;
+  padding: 10px 12px;
+  cursor: pointer;
+  gap: 8px;
+}
+
+.enhance-copy::before {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-image: url(./assets/images/icons/copy.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0.65;
+}
+
+.enhance-copy::after {
+  content: "Copy Text";
+  display: inline-block;
+}
+
+.enhance-copy:hover {
+  background-color: #ffffff08;
+}
+
+.enhance-copy:active {
+  transform: scale(0.975);
+}
+
+.enhance-copy[data-copied] {
+  outline: 1.5px solid #00cc6688;
+  background-image: linear-gradient(#00cc6618, #00cc6612);
+  color: #00cc66aa;
+}
+
+.enhance-copy[data-copied]::before {
+  background-image: url(./assets/images/icons/check.svg);
+}
+
+.enhance-copy[data-copied]::after {
+  content: "Copied";
+}
+
 @media (max-width: 1450px) {
   .search-results {
     grid-template-columns: repeat(7, 1fr);

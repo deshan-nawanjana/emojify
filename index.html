@@ -61,6 +61,7 @@
         <div class="enhance-output" v-if="enhance.output">
           {{enhance.output}}
         </div>
+        <div class="enhance-copy" :data-copied="enhance.copied" @click="copyText" v-if="enhance.output"></div>
       </div>
     </div>
   </div>
