@@ -29,6 +29,8 @@ new Vue({
   el: "#app",
   // app data
   data: {
+    // ready state
+    ready: false,
     // all items
     items: [],
     // search results
@@ -165,5 +167,7 @@ new Vue({
     const data = await fetch("index.json").then(resp => resp.json())
     // load ignoring words
     IGNORE_WORDS.push(...data.IGNORE_WORDS)
+    // set as ready
+    setTimeout(() => this.ready = true, 800)
   }
 })
