@@ -54,10 +54,13 @@
         <div class="enhance-title">
           Text Enhancement
         </div>
-        <textarea id="text" placeholder="Type your text here..."></textarea>
-        <button>
+        <textarea id="text" placeholder="Type your text here..." v-model="enhance.input"></textarea>
+        <button @click="enhanceText">
           Enhance with Emojis
         </button>
+        <div class="enhance-output" v-if="enhance.output">
+          {{enhance.output}}
+        </div>
       </div>
     </div>
   </div>

@@ -33,7 +33,9 @@ new Vue({
     // search results
     results: [],
     // copied emoji
-    copied: null
+    copied: null,
+    // text enhancement values
+    enhance: { input: "", output: "" }
   },
   // app methods
   methods: {
@@ -107,6 +109,34 @@ new Vue({
       this.timeout = setTimeout(() => this.copied = null, 1200)
       // write into clipboard data
       navigator.clipboard.writeText(item.char)
+    },
+    // enhance text input
+    enhanceText() {
+      // clear previous output
+      this.enhance.output = ""
+      // simplify and trim input query
+      const query = this.enhance.input.trim().replaceAll("  ", " ")
+      // return and focus if empty text
+      if (!query) { return document.querySelector(".enhance textarea").focus() }
+      // split into words and results mapping
+      const results = query.split(" ").map(word => {
+        // simplify by removing symbols
+        const text = word.toLowerCase().trim().replace(/[^a-z0-9]/gi, "")
+        // return if word not long enough
+        if (text.length < 3) { return word }
+        // find an exact matches from emojis
+        const matches = this.items.filter(item => (
+          // check if word included in tags
+          item.tags.includes(text)
+        )).sort((a, b) => (
+          // reverse sort by tag count
+          a.tags.length - b.tags.length
+        ))
+        // return word and emoji
+        return matches.length ? `${word} ${matches[0].char}` : word
+      })
+      // set output
+      this.enhance.output = results.join(" ")
     }
   },
   // mounted listener
