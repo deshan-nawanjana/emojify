@@ -4,7 +4,7 @@
 <head>
   <!-- meta tags -->
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <!-- favicon -->
   <link rel="shortcut icon" href="./assets/images/icon.png" type="image/png">
   <!-- fonts -->
@@ -17,7 +17,7 @@
   <!-- script -->
   <script src="./index.js" type="module"></script>
   <!-- page title -->
-  <title>Emojify - Emoji Search & Sentence Enhancement Tool</title>
+  <title>Emojify - Emoji Search & Text Enhancement Tool</title>
 </head>
 
 <body>
@@ -28,7 +28,7 @@
         Emojify Your Life!
       </div>
       <div class="heading-description">
-        Emoji Search Engine & Sentence Enhancement Tool
+        Emoji Search & Text Enhancement Tool
       </div>
     </div>
     <!-- content -->
@@ -38,7 +38,7 @@
         <!-- search input -->
         <div class="search-input">
           <input type="text" spellcheck="false" autocomplete="off" id="search" placeholder="Find your emoji..."
-            v-model="query">
+            v-model="query" @keydown="search">
           <button @click="search"></button>
         </div>
         <!-- search results -->

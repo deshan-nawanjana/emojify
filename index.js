@@ -38,11 +38,18 @@ new Vue({
   // app methods
   methods: {
     // search emojis
-    search() {
+    search(event) {
+      // return if not enter key for keydown events
+      if (event.type === "keydown" && event.code !== "Enter") { return }
       // simplify and trim search query
       const query = this.query.toLowerCase().trim().replaceAll("  ", " ")
       // return with initial items if no query
-      if (!query) { return this.results = this.items.slice(0, RESULT_LIMIT) }
+      if (!query) {
+        // focus in input
+        document.querySelector(".search input").focus()
+        // return results by limit
+        return this.results = this.items.slice(0, RESULT_LIMIT)
+      }
       // split into query parts
       const queryParts = query.split(" ")
       // results array
@@ -94,12 +101,12 @@ new Vue({
     copy(item) {
       // set as copied item
       this.copied = item.char
-      // write into clipboard data
-      navigator.clipboard.writeText(item.char)
       // clear any previous timeout
       clearTimeout(this.timeout)
       // clear copied status
       this.timeout = setTimeout(() => this.copied = null, 1200)
+      // write into clipboard data
+      navigator.clipboard.writeText(item.char)
     }
   },
   // mounted listener
