@@ -1,3 +1,6 @@
+/** Base URL */
+const BASE_URL = window.baseURL ?? ""
+
 /** Results limit */
 const RESULT_LIMIT = 80
 
@@ -7,7 +10,7 @@ const IGNORE_WORDS = []
 /** Loads and extracts emojis */
 const loadEmojis = async () => {
   // fetch external content
-  const data = await fetch("assets/objects/emojis.zip")
+  const data = await fetch(BASE_URL + "assets/objects/emojis.zip")
   // create archive
   const archive = new JSZip()
   // load from url
@@ -164,7 +167,7 @@ new Vue({
     // slice initial results
     this.results = this.items.slice(0, RESULT_LIMIT)
     // fetch config data
-    const data = await fetch("index.json").then(resp => resp.json())
+    const data = await fetch(BASE_URL + "index.json").then(resp => resp.json())
     // load ignoring words
     IGNORE_WORDS.push(...data.IGNORE_WORDS)
     // set as ready
