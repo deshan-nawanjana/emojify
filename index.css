@@ -190,8 +190,79 @@ body {
 }
 
 .enhance {
-  min-width: 450px;
   flex-shrink: 0;
+  min-width: 450px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background-color: #0b1221;
+  border: 1px solid #ffffff17;
+  box-shadow: 0px 4px 12px #0003;
+  border-radius: 18px;
+  height: 320px;
+  padding: 20px;
+}
+
+.enhance-title {
+  color: #fffc;
+  font-weight: 700;
+  text-shadow: 0px 2px 5px #fff4;
+  user-select: none;
+  font-size: 14px;
+}
+
+.enhance textarea {
+  resize: none;
+  min-height: 100px;
+  padding: 15px;
+  flex-grow: 1;
+  font-size: 14px;
+  border: 1px solid #ffffff17;
+  background-color: #00000018;
+  transition-property: border;
+  transition-duration: 0.15s;
+  border-radius: 18px;
+  color: #fffa;
+}
+
+.enhance textarea:focus {
+  border: 1px solid #6d44c5aa;
+}
+
+.enhance button {
+  margin: 0px;
+  padding: 0px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(90deg, #5a5bfc, #8b50ea, #d35e8f, #eb9550);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  font-size: 14px;
+  color: #fffe;
+  border: none;
+  gap: 8px;
+}
+
+.enhance button::after {
+  width: 16px;
+  height: 16px;
+  content: "";
+  display: inline-block;
+  background-image: url(./assets/images/icons/effect.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.enhance button:active {
+  opacity: 0.85;
+  transform: scale(0.99);
 }
 
 @media (max-width: 1450px) {
@@ -222,7 +293,9 @@ body {
   }
 
   .enhance {
-    display: none;
+    width: 100%;
+    min-width: auto;
+    height: fit-content;
   }
 }
 
