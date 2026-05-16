@@ -43,7 +43,8 @@
         </div>
         <!-- search results -->
         <div class="search-results">
-          <div class="search-results-item" v-for="item in results">
+          <div class="search-results-item" v-for="item in results" :data-copied="copied === item.char"
+            @click="copy(item)">
             {{item.char}}
           </div>
         </div>

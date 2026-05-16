@@ -22,6 +22,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: start;
+  user-select: none;
   gap: 10px;
 }
 
@@ -100,7 +101,7 @@ body {
 
 .search-input button::before {
   content: "";
-  background-image: url(./assets/images/icons/arrow-right.svg);
+  background-image: url(./assets/images/icons/arrow.svg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: 30px auto;
@@ -135,6 +136,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
   font-size: 45px;
   color: #fff;
   user-select: none;
@@ -142,17 +144,48 @@ body {
   font-family: "NotoColorEmoji";
   outline: 1px solid #fff0;
   transition-property: outline, transform;
-  transition-duration: 0.15s;
+  transition-duration: 0.1s;
   aspect-ratio: 1;
 }
 
 .search-results-item:hover {
-  outline: 1px solid #fff2;
+  outline: 1.5px solid #fff2;
   transform: scale(1.025);
 }
 
 .search-results-item:active {
   transform: scale(0.975);
+}
+
+.search-results-item::after {
+  content: "";
+  display: inline-block;
+  width: 14%;
+  height: 14%;
+  background-image: url(./assets/images/icons/copy.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  position: absolute;
+  transition-property: opacity;
+  transition-duration: 0.15s;
+  bottom: 10%;
+  right: 10%;
+  opacity: 0;
+}
+
+.search-results-item:hover:after {
+  opacity: 0.4;
+}
+
+.search-results-item[data-copied] {
+  outline: 1.5px solid #00cc6688;
+  background-image: linear-gradient(#00cc6618, #00cc6612);
+}
+
+.search-results-item[data-copied]::after {
+  background-image: url(./assets/images/icons/check.svg);
+  opacity: 0.6;
 }
 
 .enhance {

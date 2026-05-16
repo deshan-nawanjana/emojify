@@ -31,7 +31,9 @@ new Vue({
     // search query
     query: "",
     // search results
-    results: []
+    results: [],
+    // copied emoji
+    copied: null
   },
   // app methods
   methods: {
@@ -87,6 +89,17 @@ new Vue({
       ))
       // return results by limit
       this.results = [...exactMatches, ...partialMatches].slice(0, RESULT_LIMIT)
+    },
+    // copy emoji to clipboard
+    copy(item) {
+      // set as copied item
+      this.copied = item.char
+      // write into clipboard data
+      navigator.clipboard.writeText(item.char)
+      // clear any previous timeout
+      clearTimeout(this.timeout)
+      // clear copied status
+      this.timeout = setTimeout(() => this.copied = null, 1200)
     }
   },
   // mounted listener
