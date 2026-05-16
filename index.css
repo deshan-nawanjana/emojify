@@ -2,6 +2,7 @@
   font-family: "Inter";
   -webkit-tap-highlight-color: transparent;
   box-sizing: border-box;
+  user-select: none;
   outline: none;
 }
 
@@ -23,7 +24,6 @@ body {
   display: flex;
   flex-direction: column;
   align-items: start;
-  user-select: none;
   gap: 10px;
 }
 
@@ -71,6 +71,7 @@ body {
   border: none;
   font-size: 15px;
   background-color: transparent;
+  user-select: text;
   padding: 0px 25px;
   color: #fffa;
 }
@@ -140,7 +141,6 @@ body {
   position: relative;
   font-size: 45px;
   color: #fff;
-  user-select: none;
   cursor: pointer;
   font-family: "NotoColorEmoji";
   outline: 1px solid #fff0;
@@ -208,7 +208,6 @@ body {
   color: #fffc;
   font-weight: 700;
   text-shadow: 0px 2px 5px #fff4;
-  user-select: none;
   font-size: 14px;
 }
 
@@ -223,6 +222,7 @@ body {
   transition-property: border;
   transition-duration: 0.15s;
   border-radius: 18px;
+  user-select: text;
   color: #fffa;
 }
 
@@ -270,6 +270,11 @@ body {
 .enhance-output {
   color: #fffa;
   font-family: "Inter", "NotoColorEmoji";
+  user-select: text;
+}
+
+.enhance-output::selection {
+  background-color: #fff2;
 }
 
 @media (max-width: 1450px) {

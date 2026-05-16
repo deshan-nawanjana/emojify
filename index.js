@@ -28,23 +28,21 @@ new Vue({
   data: {
     // all items
     items: [],
-    // search query
-    query: "",
     // search results
     results: [],
-    // copied emoji
-    copied: null,
+    // search input values
+    search: { query: "", copied: null },
     // text enhancement values
     enhance: { input: "", output: "" }
   },
   // app methods
   methods: {
     // search emojis
-    search(event) {
+    searchEmojis(event) {
       // return if not enter key for keydown events
       if (event.type === "keydown" && event.code !== "Enter") { return }
       // simplify and trim search query
-      const query = this.query.toLowerCase().trim().replaceAll("  ", " ")
+      const query = this.search.query.toLowerCase().trim().replaceAll("  ", " ")
       // return with initial items if no query
       if (!query) {
         // focus in input
@@ -100,13 +98,13 @@ new Vue({
       this.results = [...exactMatches, ...partialMatches].slice(0, RESULT_LIMIT)
     },
     // copy emoji to clipboard
-    copy(item) {
+    copyEmoji(item) {
       // set as copied item
-      this.copied = item.char
+      this.search.copied = item.char
       // clear any previous timeout
       clearTimeout(this.timeout)
       // clear copied status
-      this.timeout = setTimeout(() => this.copied = null, 1200)
+      this.timeout = setTimeout(() => this.search.copied = null, 1200)
       // write into clipboard data
       navigator.clipboard.writeText(item.char)
     },

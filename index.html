@@ -38,13 +38,13 @@
         <!-- search input -->
         <div class="search-input">
           <input type="text" spellcheck="false" autocomplete="off" id="search" placeholder="Find your emoji..."
-            v-model="query" @keydown="search">
-          <button @click="search"></button>
+            v-model="search.query" @keydown="searchEmojis">
+          <button @click="searchEmojis"></button>
         </div>
         <!-- search results -->
         <div class="search-results">
-          <div class="search-results-item" v-for="item in results" :data-copied="copied === item.char"
-            @click="copy(item)">
+          <div class="search-results-item" v-for="item in results" :data-copied="search.copied === item.char"
+            @click="copyEmoji(item)">
             {{item.char}}
           </div>
         </div>
