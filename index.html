@@ -37,8 +37,9 @@
       <div class="search">
         <!-- search input -->
         <div class="search-input">
-          <input type="text" spellcheck="false" autocomplete="off" id="search" placeholder="Find your emoji...">
-          <button></button>
+          <input type="text" spellcheck="false" autocomplete="off" id="search" placeholder="Find your emoji..."
+            v-model="query">
+          <button @click="search"></button>
         </div>
         <!-- search results -->
         <div class="search-results">
