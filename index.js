@@ -1,3 +1,6 @@
+/** Results limit */
+const RESULT_LIMIT = 144
+
 /** Loads and extracts emojis */
 const loadEmojis = async () => {
   // fetch external content
@@ -25,14 +28,72 @@ new Vue({
   data: {
     // all items
     items: [],
+    // search query
+    query: "",
     // search results
     results: []
+  },
+  // app methods
+  methods: {
+    // search emojis
+    search() {
+      // simplify and trim search query
+      const query = this.query.toLowerCase().trim().replaceAll("  ", " ")
+      // return with initial items if no query
+      if (!query) { return this.results = this.items.slice(0, RESULT_LIMIT) }
+      // split into query parts
+      const queryParts = query.split(" ")
+      // results array
+      const results = []
+      // filter by exact tags
+      const exactMatches = this.items.filter(item => (
+        // check if any match for query part in tags
+        queryParts.some(part => item.tags.includes(part))
+      )).map(item => ({
+        // map into item and score by matching tags count
+        item, score: item.tags.filter(tag => queryParts.includes(tag)).length
+      })).sort((a, b) => (
+        // sort by score in descending order
+        b.score - a.score
+      )).map(result => (
+        // remap into items
+        result.item
+      ))
+      // return results if enough for limit
+      if (exactMatches.length >= RESULT_LIMIT) {
+        return this.results = exactMatches.slice(0, RESULT_LIMIT)
+      }
+      // filter remaining items
+      const remaining = this.items.filter(item => !exactMatches.includes(item))
+      // filter by partial matches
+      const partialMatches = remaining.filter(item => (
+        // check if any match for query part with part of tags
+        queryParts.some(part => item.tags.some(tag => tag.includes(part)))
+        ||
+        // check if any match for tag with part of query
+        item.tags.some(tag => queryParts.some(part => part.includes(tag)))
+      )).map(item => ({
+        // map into item and score by matching tags count
+        item, score: queryParts.reduce((score, part) => (
+          // cumulate score by part length in tags
+          item.tags.some(tag => tag.includes(part)) ? score + part.length : score
+        ), 0)
+      })).sort((a, b) => (
+        // sort by score in descending order
+        b.score - a.score
+      )).map(result => (
+        // remap into items
+        result.item
+      ))
+      // return results by limit
+      this.results = [...exactMatches, ...partialMatches].slice(0, RESULT_LIMIT)
+    }
   },
   // mounted listener
   async mounted() {
     // load all emoji items
     this.items = await loadEmojis()
     // slice initial results
-    this.results = this.items.slice(0, 50)
+    this.results = this.items.slice(0, RESULT_LIMIT)
   }
 })
