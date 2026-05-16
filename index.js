@@ -1,6 +1,9 @@
 /** Results limit */
 const RESULT_LIMIT = 144
 
+/** Ignoring words for enhancement */
+const IGNORE_WORDS = []
+
 /** Loads and extracts emojis */
 const loadEmojis = async () => {
   // fetch external content
@@ -122,13 +125,17 @@ new Vue({
         const text = word.toLowerCase().trim().replace(/[^a-z0-9]/gi, "")
         // return if word not long enough
         if (text.length < 3) { return word }
+        // return if should be ignored
+        if (IGNORE_WORDS.includes(text)) { return word }
         // find an exact matches from emojis
         const matches = this.items.filter(item => (
           // check if word included in tags
           item.tags.includes(text)
         )).sort((a, b) => (
-          // reverse sort by tag count
-          a.tags.length - b.tags.length
+          // priority for matching with name
+          a.name === text || a.name.startsWith(text) || a.name.endsWith(text) ? -1
+            // priority for less tags
+            : a.tags.length > b.tags.length ? 1 : 0
         ))
         // return word and emoji
         return matches.length ? `${word} ${matches[0].char}` : word
@@ -143,5 +150,9 @@ new Vue({
     this.items = await loadEmojis()
     // slice initial results
     this.results = this.items.slice(0, RESULT_LIMIT)
+    // fetch config data
+    const data = await fetch("index.json").then(resp => resp.json())
+    // load ignoring words
+    IGNORE_WORDS.push(...data.IGNORE_WORDS)
   }
 })
