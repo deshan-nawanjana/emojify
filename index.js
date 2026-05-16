@@ -1,5 +1,5 @@
 /** Results limit */
-const RESULT_LIMIT = 144
+const RESULT_LIMIT = 80
 
 /** Ignoring words for enhancement */
 const IGNORE_WORDS = []

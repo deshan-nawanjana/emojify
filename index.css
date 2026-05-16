@@ -9,7 +9,7 @@
 body {
   margin: 0px;
   background-size: cover;
-  background-image: linear-gradient(90deg, #03060c, #0b1221);
+  background-image: linear-gradient(90deg, #03060c, #0a101e);
   background-color: #03060c;
 }
 
@@ -196,7 +196,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  background-color: #0b1221;
+  background-color: #101323;
   border: 1px solid #ffffff17;
   box-shadow: 0px 4px 12px #0003;
   border-radius: 18px;
@@ -206,6 +206,7 @@ body {
 
 .enhance-title {
   color: #fffc;
+  padding-left: 5px;
   font-weight: 700;
   text-shadow: 0px 2px 5px #fff4;
   font-size: 14px;
@@ -218,7 +219,7 @@ body {
   flex-grow: 1;
   font-size: 14px;
   border: 1px solid #ffffff17;
-  background-color: #00000018;
+  background-color: #00000043;
   transition-property: border;
   transition-duration: 0.15s;
   border-radius: 18px;
@@ -228,6 +229,10 @@ body {
 
 .enhance textarea:focus {
   border: 1px solid #6d44c5aa;
+}
+
+.enhance textarea::selection {
+  background-color: #fff2;
 }
 
 .enhance button {
@@ -398,22 +403,36 @@ body {
 }
 
 @media (max-width: 650px) {
+  #app {
+    padding: 15px;
+  }
+
+  .content {
+    gap: 20px;
+  }
+
   .heading {
     align-items: center;
     text-align: center;
-    padding: 10px 0px;
+    padding: 30px 0px 15px 0px;
   }
 
   .heading-title {
-    font-size: 8vw;
+    font-size: 9.5vw;
   }
 
   .heading-description {
-    font-size: 3vw;
+    font-size: 3.5vw;
   }
 
   .search-results {
     grid-template-columns: repeat(4, 1fr);
+    max-width: calc(100svw - 30px);
+    padding: 16px;
+  }
+
+  .enhance {
+    padding: 16px;
   }
 }
 
