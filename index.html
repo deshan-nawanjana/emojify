@@ -23,15 +23,24 @@
   <link rel="canonical" href="https://deshan.lk/apps/emojify" />
   <!-- favicon -->
   <link rel="shortcut icon" href="./assets/images/icon.png" type="image/png">
-  <!-- fonts -->
+  <!-- preload : fonts -->
   <link rel="stylesheet" href="./assets/fonts/fonts.css">
+  <link rel="preload" href="./assets/fonts/Inter/Inter-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="./assets/fonts/Inter/Inter-Medium.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="./assets/fonts/Inter/Inter-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <!-- preload : images -->
+  <link rel="preload" href="./assets/images/spinner.svg" as="image" type="image/svg+xml" />
+  <link rel="preload" href="./assets/images/icons/arrow.svg" as="image" type="image/svg+xml" />
+  <link rel="preload" href="./assets/images/icons/effect.svg" as="image" type="image/svg+xml" />
+  <link rel="preload" href="./assets/images/icons/copy.svg" as="image" type="image/svg+xml" />
+  <link rel="preload" href="./assets/images/icons/check.svg" as="image" type="image/svg+xml" />
   <!-- style -->
   <link rel="stylesheet" href="./index.css">
   <!-- libraries -->
   <script src="./assets/libraries/vue.min.js"></script>
   <script src="./assets/libraries/jszip.min.js"></script>
   <!-- script -->
-  <script src="./index.js" type="module"></script>
+  <script src="./index.js" type="module" defer></script>
   <!-- page title -->
   <title>Emojify - Emoji Search & Text Enhancement Tool</title>
 </head>
