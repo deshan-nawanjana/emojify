@@ -243,6 +243,14 @@ body {
   background-color: #fff2;
 }
 
+.enhance label {
+  font-size: 13px;
+  color: #fff8;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
 .enhance button {
   margin: 0px;
   padding: 0px;

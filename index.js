@@ -44,7 +44,7 @@ new Vue({
     // search input values
     search: { query: "", copied: null },
     // text enhancement values
-    enhance: { input: "", output: "", copied: null }
+    enhance: { input: "", output: "", synonyms: false, copied: null }
   },
   // app methods
   methods: {
@@ -123,6 +123,8 @@ new Vue({
     enhanceText() {
       // clear previous output
       this.enhance.output = ""
+      // get emoji list
+      const list = this.enhance.synonyms ? this.items.synonyms : this.items.original
       // simplify and trim input query
       const query = this.enhance.input.trim().replaceAll("  ", " ")
       // return and focus if empty text
@@ -136,7 +138,7 @@ new Vue({
         // return if should be ignored
         if (IGNORE_WORDS.includes(text)) { return word }
         // find an exact matches from emojis
-        const matches = this.items.original.filter(item => (
+        const matches = list.filter(item => (
           // check if word included in tags
           item.tags.includes(text)
         )).sort((a, b) => (

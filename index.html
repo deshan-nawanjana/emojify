@@ -75,9 +75,9 @@
         </div>
         <!-- search results -->
         <div class="search-results">
-          <div class="search-results-item" v-for="item in results" :data-copied="search.copied === item.char"
+          <div class="search-results-item" v-for="item in results" :data-copied="search.copied === item.data"
             @click="copyEmoji(item)">
-            {{item.char}}
+            {{item.data}}
           </div>
         </div>
       </div>
@@ -87,6 +87,10 @@
           Text Enhancement
         </div>
         <textarea id="text" placeholder="Type your text here..." v-model="enhance.input"></textarea>
+        <label for="synonyms">
+          <input type="checkbox" name="synonyms" id="synonyms" v-model="enhance.synonyms">
+          Match with synonyms
+        </label>
         <button @click="enhanceText">
           Enhance with Emojis
         </button>
