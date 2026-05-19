@@ -51,6 +51,51 @@ body {
   font-size: 14px;
 }
 
+.skins {
+  display: flex;
+  gap: 10px;
+}
+
+.skin-item {
+  width: 26px;
+  height: 26px;
+  border-radius: 15px;
+  outline: 3px solid #000;
+  transition: outline 0.15s;
+  cursor: pointer;
+  border: none;
+  padding: 0px;
+  margin: 0px;
+}
+
+.skin-item[data-index="0"] {
+  background-color: #FDCB58;
+}
+
+.skin-item[data-index="1"] {
+  background-color: #F2D3B1;
+}
+
+.skin-item[data-index="2"] {
+  background-color: #D8B08C;
+}
+
+.skin-item[data-index="3"] {
+  background-color: #B97A56;
+}
+
+.skin-item[data-index="4"] {
+  background-color: #8A5A3B;
+}
+
+.skin-item[data-index="5"] {
+  background-color: #5C3B2E;
+}
+
+.skin-item[data-active] {
+  outline: 3px solid #fff;
+}
+
 .content {
   display: flex;
   gap: 30px;
@@ -440,6 +485,10 @@ body {
 
   .heading-description {
     font-size: 3.5vw;
+  }
+
+  .skins {
+    justify-content: center;
   }
 
   .search-results {

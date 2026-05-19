@@ -27,6 +27,7 @@ const loadEmojis = async () => {
   return {
     original: JSON.parse(await archive.files["EmojiList.json"].async("string")),
     synonyms: JSON.parse(await archive.files["EmojiListSynonyms.json"].async("string")),
+    skins: JSON.parse(await archive.files["EmojiListSkins.json"].async("string"))
   }
 }
 
@@ -37,8 +38,10 @@ new Vue({
   data: {
     // ready state
     ready: false,
+    // skin tones
+    skins: { list: [], current: 0 },
     // all items
-    items: [],
+    items: {},
     // search results
     results: [],
     // search input values
@@ -48,6 +51,17 @@ new Vue({
   },
   // app methods
   methods: {
+    // get emoji with skin tone
+    toEmoji(emoji) {
+      // get skin tone index
+      const tone = this.skins.current
+      // return if no skin
+      if (tone === 0) { return emoji }
+      // get skin tones for emoji
+      const skins = this.items.skins[emoji]
+      // return skin tone applied emoji
+      return skins ? skins[tone - 1] : emoji
+    },
     // search emojis
     searchEmojis(event) {
       // return if not enter key for keydown events
@@ -117,7 +131,7 @@ new Vue({
       // clear copied status
       this.searchTime = setTimeout(() => this.search.copied = null, 1200)
       // write into clipboard data
-      navigator.clipboard.writeText(item.data)
+      navigator.clipboard.writeText(this.toEmoji(item.data))
     },
     // enhance text input
     enhanceText() {
@@ -148,7 +162,7 @@ new Vue({
             : a.tags.length > b.tags.length ? 1 : 0
         ))
         // return word and emoji
-        return matches.length ? `${word} ${matches[0].data}` : word
+        return matches.length ? `${word} ${this.toEmoji(matches[0].data)}` : word
       })
       // set output
       this.enhance.output = results.join(" ")
@@ -175,6 +189,8 @@ new Vue({
     const data = await fetch(BASE_URL + "index.json").then(resp => resp.json())
     // load ignoring words
     IGNORE_WORDS.push(...data.IGNORE_WORDS)
+    // load skin tones
+    this.skins.list = data.SKIN_TONES
     // set as ready
     setTimeout(() => this.ready = true, 800)
   }

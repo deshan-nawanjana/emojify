@@ -63,6 +63,11 @@
         Emoji Search & Text Enhancement Tool
       </div>
     </div>
+    <!-- skin tones -->
+    <div class="skins">
+      <button class="skin-item" v-for="(item, index) in skins.list" :data-index="index"
+        :data-active="skins.current === index" @click="skins.current = index"></button>
+    </div>
     <!-- content -->
     <div class="content">
       <!-- search section -->
@@ -76,8 +81,8 @@
         <!-- search results -->
         <div class="search-results">
           <div class="search-results-item" v-for="item in results" :data-copied="search.copied === item.data"
-            @click="copyEmoji(item)">
-            {{item.data}}
+            @click="copyEmoji(item)" :title="item.name">
+            {{toEmoji(item.data)}}
           </div>
         </div>
       </div>
