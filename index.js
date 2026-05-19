@@ -10,21 +10,24 @@ const IGNORE_WORDS = []
 /** Loads and extracts emojis */
 const loadEmojis = async () => {
   // fetch external content
-  const data = await fetch(BASE_URL + "assets/objects/emojis.zip")
+  const data = await fetch(BASE_URL + "assets/objects/data.zip")
   // create archive
   const archive = new JSZip()
   // load from url
   await archive.loadAsync(data.blob())
   // get emoji font blob
-  const blob = await archive.files["emojis.ttf"].async("blob")
+  const blob = await archive.files["NotoColorEmoji.ttf"].async("blob")
   // create font face and load
   const font = new FontFace("NotoColorEmoji", `url(${URL.createObjectURL(blob)})`)
   // add into document fonts
   document.fonts.add(font)
   // load font face
   await font.load()
-  // parse and return emojis
-  return JSON.parse(await archive.files["emojis.json"].async("string"))
+  // parse and return emoji lists
+  return {
+    original: JSON.parse(await archive.files["EmojiList.json"].async("string")),
+    synonyms: JSON.parse(await archive.files["EmojiListSynonyms.json"].async("string")),
+  }
 }
 
 new Vue({
@@ -56,14 +59,14 @@ new Vue({
         // focus in input
         document.querySelector(".search input").focus()
         // return results by limit
-        return this.results = this.items.slice(0, RESULT_LIMIT)
+        return this.results = this.items.synonyms.slice(0, RESULT_LIMIT)
       }
       // split into query parts
       const queryParts = query.split(" ")
       // results array
       const results = []
       // filter by exact tags
-      const exactMatches = this.items.filter(item => (
+      const exactMatches = this.items.synonyms.filter(item => (
         // check if any match for query part in tags
         queryParts.some(part => item.tags.includes(part))
       )).map(item => ({
@@ -81,7 +84,7 @@ new Vue({
         return this.results = exactMatches.slice(0, RESULT_LIMIT)
       }
       // filter remaining items
-      const remaining = this.items.filter(item => !exactMatches.includes(item))
+      const remaining = this.items.synonyms.filter(item => !exactMatches.includes(item))
       // filter by partial matches
       const partialMatches = remaining.filter(item => (
         // check if any match for query part with part of tags
@@ -108,13 +111,13 @@ new Vue({
     // copy emoji to clipboard
     copyEmoji(item) {
       // set as copied item
-      this.search.copied = item.char
+      this.search.copied = item.data
       // clear any previous timeout
       clearTimeout(this.searchTime)
       // clear copied status
       this.searchTime = setTimeout(() => this.search.copied = null, 1200)
       // write into clipboard data
-      navigator.clipboard.writeText(item.char)
+      navigator.clipboard.writeText(item.data)
     },
     // enhance text input
     enhanceText() {
@@ -133,7 +136,7 @@ new Vue({
         // return if should be ignored
         if (IGNORE_WORDS.includes(text)) { return word }
         // find an exact matches from emojis
-        const matches = this.items.filter(item => (
+        const matches = this.items.original.filter(item => (
           // check if word included in tags
           item.tags.includes(text)
         )).sort((a, b) => (
@@ -143,7 +146,7 @@ new Vue({
             : a.tags.length > b.tags.length ? 1 : 0
         ))
         // return word and emoji
-        return matches.length ? `${word} ${matches[0].char}` : word
+        return matches.length ? `${word} ${matches[0].data}` : word
       })
       // set output
       this.enhance.output = results.join(" ")
@@ -165,7 +168,7 @@ new Vue({
     // load all emoji items
     this.items = await loadEmojis()
     // slice initial results
-    this.results = this.items.slice(0, RESULT_LIMIT)
+    this.results = this.items.synonyms.slice(0, RESULT_LIMIT)
     // fetch config data
     const data = await fetch(BASE_URL + "index.json").then(resp => resp.json())
     // load ignoring words
