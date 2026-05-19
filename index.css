@@ -1,6 +1,7 @@
 * {
   font-family: "Inter";
   -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
   box-sizing: border-box;
   user-select: none;
   outline: none;
