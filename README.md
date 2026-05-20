@@ -17,8 +17,11 @@ Launch Now: [https://deshan.lk/apps/emojify](https://deshan.lk/apps/emojify)
 
 ## Assets and Resources Used
 
+- [Full Emoji List](https://www.unicode.org/emoji/charts/full-emoji-list.html) by Unicode, Inc
+- [Emoji Skin Tone List](https://www.unicode.org/emoji/charts/full-emoji-modifiers.html) by Unicode, Inc
 - [emoji.json](https://github.com/amio/emoji.json) by amio
 - [Emoji](https://github.com/BehrouzSohrabi/Emoji) by BehrouzSohrabi
+- [English Synonyms](https://www.kaggle.com/datasets/behcetsenturk/englishengen-synonyms-json-thesaurus) by Behcet Senturk
 - [Noto Color Emoji](https://fonts.google.com/noto/specimen/Noto+Color+Emoji) font by Google
 - [Inter](https://fonts.google.com/specimen/Inter) font by Rasmus Andersson
 
